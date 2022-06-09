@@ -1,38 +1,54 @@
 package main
 
-import "fmt"
-
-type ContaCorrente struct {
-	titular       string
-	numeroAgencia int
-	numeroConta   int
-	saldo         float64
-}
+import (
+	"banco/cliente"
+	c "banco/contas"
+	"fmt"
+)
 
 func main() {
-	contaCorrente01 := ContaCorrente{titular: "Emmanuel", numeroAgencia: 01, numeroConta: 12123, saldo: 2000}
-	contaCorrente04 := ContaCorrente{titular: "Emmanuel", numeroAgencia: 01, numeroConta: 12123, saldo: 2000}
-	contaCorrente02 := ContaCorrente{"Saci Perere", 01, 12133, 4000}
-	fmt.Println(contaCorrente01, contaCorrente02)
+	//contaCorrente01 := c.ContaCorrente{Titular: cliente.Titular{
+	//	Nome:      "Juca Pirama",
+	//	Cpf:       "74125896323",
+	//	Profissão: "Desenvolvedor",
+	//},
+	//	NumeroAgencia: 01,
+	//	NumeroConta:   12123,
+	//	Saldo:         500}
+	//
+	//contaCorrente02 := c.ContaCorrente{Titular: cliente.Titular{
+	//	Nome:      "SaciPerere",
+	//	Cpf:       "74125896324",
+	//	Profissão: "Desenvolvedor",
+	//},
+	//	NumeroAgencia: 01,
+	//	NumeroConta:   12124,
+	//	Saldo:         0}
 
-	//comprando conetudo e endereços das structs
-	fmt.Println(contaCorrente01 == contaCorrente04)
+	cliente01 := cliente.Titular{
+		Nome:      "Juca Pirama",
+		Cpf:       "74125896323",
+		Profissão: "Desenvolvedor",
+	}
+	contaCorrente01 := c.ContaCorrente{
+		Titular:       cliente01,
+		NumeroAgencia: 01,
+		NumeroConta:   12124,
+		Saldo:         0,
+	}
+	cliente02 := cliente.Titular{
+		Nome:      "Saci Perere",
+		Cpf:       "74125896347",
+		Profissão: "Desenvolvedor",
+	}
+	contaCorrente02 := c.ContaCorrente{
+		Titular:       cliente02,
+		NumeroAgencia: 01,
+		NumeroConta:   12124,
+		Saldo:         0,
+	}
 
-	contaCorrente03 := new(ContaCorrente)
-	contaCorrente03.titular = "Juca Pirama"
-	contaCorrente03.numeroAgencia = 01
-	contaCorrente03.numeroConta = 10102
-	contaCorrente03.saldo = 10000
-
-	contaCorrente05 := new(ContaCorrente)
-	contaCorrente05.titular = "Juca Pirama"
-	contaCorrente05.numeroAgencia = 01
-	contaCorrente05.numeroConta = 10102
-	contaCorrente05.saldo = 10000
-
-	//comprando conetudo e endereços das structs
-	fmt.Println(contaCorrente03 == contaCorrente05)
-	fmt.Println(*contaCorrente03 == *contaCorrente05)
-	fmt.Println(&contaCorrente03, &contaCorrente05)
-
+	contaCorrente01.Depositar(1000)
+	contaCorrente01.Transferir(250, &contaCorrente02)
+	fmt.Println(contaCorrente01.Saldo, contaCorrente02.Saldo)
 }
