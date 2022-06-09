@@ -34,7 +34,6 @@ func main() {
 		Titular:       cliente01,
 		NumeroAgencia: 01,
 		NumeroConta:   12124,
-		Saldo:         0,
 	}
 	cliente02 := cliente.Titular{
 		Nome:      "Saci Perere",
@@ -45,10 +44,9 @@ func main() {
 		Titular:       cliente02,
 		NumeroAgencia: 01,
 		NumeroConta:   12124,
-		Saldo:         0,
 	}
 
 	contaCorrente01.Depositar(1000)
 	contaCorrente01.Transferir(250, &contaCorrente02)
-	fmt.Println(contaCorrente01.Saldo, contaCorrente02.Saldo)
+	fmt.Println(contaCorrente01.ObterSaldo(), contaCorrente02.ObterSaldo())
 }
